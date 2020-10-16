@@ -1,0 +1,86 @@
+"""
+Derivate Calculator
+By Sebastian Montén, 16-10-2020
+"""
+
+class Term:
+    def __init__(self, pm, k, p):
+        self.__pm = pm
+        self.__k = k
+        self.__p = p
+    
+    def __str__(self):
+        if self.__p == 0:
+            term = str(self.__pm) + str(self.__k)
+        if self.__p == 1:
+            term = str(self.__pm) + str(self.__k) + "x"
+        if int(self.__p) > 1:
+            term = str(self.__pm) + str(self.__k) + "x^" + str(self.__p)
+        if self.__k == 0:
+            term = str(0)
+        return term
+    
+    def get_term(self):
+        if self.__p == 0:
+            term = str(self.__pm) + " " + str(self.__k) + " "
+        if self.__p == 1:
+            term = str(self.__pm) + " " + str(self.__k) + "x" + " "
+        if int(self.__p) > 1:
+            term = str(self.__pm) + " " + str(self.__k) + "x^" + str(self.__p) + " "
+        if self.__k == 0:
+            term = "+ 0 "
+        return term
+    
+    def derive(self):
+        p_old = int(self.__p)
+        if int(self.__p) >= 1:
+            self.__p = int(self.__p) -1
+            self.__k = int(self.__k) * p_old
+        elif self.__p == 0:
+            self.__k = 0
+
+def derive(terms):
+    f = ""
+    for term in terms:
+        term.derive()
+        f += term.get_term()
+    if f[0] == "+":
+        f = f[1:]
+    print(f)
+        
+    
+def create_term(func):
+    #print(func)
+    terms = []
+    func += "|"
+    if func[0] != "-":
+        func = "+" + func
+    i = 0
+    i_prev = 0
+    for char in func:
+        if char == "+" or char == "-" or char == "|":
+            term = func[i_prev:i]
+            #print(term)
+            term = term.replace(" ", "")
+            if term != "":
+                pm = term[0]
+                if "x" in term:
+                    k = term[1:term.index("x")]
+                    if k == "":
+                        k = 1
+                    if "^" in term:
+                        p = term[term.index("^")+1:]
+                    else:
+                        p = 1
+                else:
+                    k = term[1:]
+                    p = 0
+                #print(pm, k, p)
+                terms.append(Term(pm, k, p))
+            i_prev = i
+        i += 1
+    return terms
+
+test_term = Term("-", 1, 1)
+terms = create_term(input("Input a function: y = "))
+derive(terms)
