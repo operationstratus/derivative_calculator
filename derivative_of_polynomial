@@ -1,6 +1,8 @@
 """
 Derivate Calculator
 By Sebastian Montén, 16-10-2020
+
+THIS IS A CHANGE
 """
 
 class Term:
