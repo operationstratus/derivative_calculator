@@ -2,7 +2,8 @@
 Derivate Calculator
 By Sebastian Montén, 16-10-2020
 
-THIS IS A CHANGE
+This Program asks the user to enter in a polynomial function. 
+he program then prints the derivative of that function.
 """
 
 class Term:
