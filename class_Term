@@ -1,0 +1,35 @@
+class Term:
+    def __init__(self, pm, k, p):
+        self.__pm = pm
+        self.__k = k
+        self.__p = p
+    
+    def __str__(self):
+        if self.__p == 0:
+            term = str(self.__pm) + str(self.__k)
+        if self.__p == 1:
+            term = str(self.__pm) + str(self.__k) + "x"
+        if int(self.__p) > 1:
+            term = str(self.__pm) + str(self.__k) + "x^" + str(self.__p)
+        if self.__k == 0:
+            term = str(0)
+        return term
+    
+    def get_term(self):
+        if self.__p == 0:
+            term = str(self.__pm) + " " + str(self.__k) + " "
+        if self.__p == 1:
+            term = str(self.__pm) + " " + str(self.__k) + "x" + " "
+        if int(self.__p) > 1:
+            term = str(self.__pm) + " " + str(self.__k) + "x^" + str(self.__p) + " "
+        if self.__k == 0:
+            term = "+ 0 "
+        return term
+    
+    def derive(self):
+        p_old = int(self.__p)
+        if int(self.__p) >= 1:
+            self.__p = int(self.__p) -1
+            self.__k = int(self.__k) * p_old
+        elif self.__p == 0:
+            self.__k = 0
